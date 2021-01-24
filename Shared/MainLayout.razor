@@ -1,0 +1,35 @@
+@inherits LayoutComponentBase
+<button type="button" class="mobile-nav-toggle d-xl-none" @onclick="ShowHideHeader"><i class="@navIconClass"></i></button>
+<div class="@headerContainerClass">
+    <Header Navmethod="@ShowHideHeader" />
+
+    <div id="main" class="main">
+        @Body
+    </div>
+</div>
+<div id="overlay" @onclick="ShowHideHeader" style="@overlayStyle"></div>
+
+@code {
+
+    private string overlayStyle = "";
+    private string headerContainerClass = "";
+    private string navIconClass = "fa fa-navicon";
+
+    private void ShowHideHeader()
+    {
+        Console.WriteLine(headerContainerClass.Length);
+        if (string.IsNullOrEmpty(headerContainerClass))
+        {
+            headerContainerClass = "mobile-nav-active";
+            navIconClass = navIconClass.Replace("fa-navicon", "fa-close");
+            overlayStyle = "display:block;";
+        }
+        else
+        {
+            headerContainerClass = "";
+            navIconClass = navIconClass.Replace("fa-close","fa-navicon");
+            overlayStyle = "display:none;";
+        }
+    }
+
+}
